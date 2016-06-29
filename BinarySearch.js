@@ -15,7 +15,7 @@ function binarySearch(val, array) {
     mid = array[midPoint];
     
     //Break loop when you've run out of space to check
-    if(ceil === floor || (ceil - floor) == 1 ){ break; }
+    if(ceil === floor || (ceil - floor) === 1 ){ break; }
     
     if (val > mid){
       floor = midPoint;
