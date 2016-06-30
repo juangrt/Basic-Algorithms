@@ -27,3 +27,31 @@ function binarySearch(val, array) {
   //Checked value other wise return null.
   return (mid === val)? mid : null;
 };
+
+/*
+  Binary Search Assumes PreSorted array
+  Doesn't do type validation
+  Recursive Version
+*/
+function recursiveBinarySearch(val, array) {
+  var floor = 0;
+      ceil = array? array.length : 0;
+
+  var midPoint = Math.floor((ceil+floor)/2);
+  mid = array[midPoint];
+
+  if(ceil === floor || (ceil - floor) === 1 ){
+    return (mid === val)? mid : null;
+  }
+
+  if(mid === val){
+    return mid;  
+  } else {
+    if (val > mid) {
+      floor = midPoint;
+    } else if(val < mid) {
+      ceil = midPoint;
+    }
+    return recursiveBinarySearch(val, array.slice(floor , ceil));
+  }
+};
