@@ -1,0 +1,51 @@
+const data =[
+  ['a', 'c', 'h', 'm', 'j'],
+  ['x', 'c', 'n', 'p', 'o'],
+  ['a', 'u', 'l', 'x', 'q'],
+  ['g', 'p', 'n', 'f', 'h'],
+  ['j', 'f', 'i', 'p', 'y'],
+  ['t', 'g', 't', 'f', 'p'],
+]
+
+let foundItem = {}
+
+const checkChar = (word, data, row, col) => {
+  return data[row][col] === word[0]
+}
+
+const checkNext = (word, data, row, col) => {
+  if (word.length === 0) {
+    return true
+  }
+  if (checkChar(word, data, row, col + 1)) {
+    foundItem[word[0]] = { row: row, col: col + 1 }
+    return checkNext(word.substring(1,word.length), data, row, col + 1)
+  }
+  if (checkChar(word, data, row + 1, col)) {
+    foundItem[word[0]] = { row: row + 1, col: col }
+    return checkNext(word.substring(1,word.length), data, row +1 , col)
+  }
+  return false
+}
+
+const findWord3 = (word, data, row = 0, col = 0) => {
+  let found = false
+  while (row < data.length && !found) {
+    col = 0
+    while (col < data[row].length && !found) {
+      if (checkChar(word, data, row, col)) {
+        foundItem[word[0]] = { row: row, col: col }
+        if(checkNext(word.substring(1,word.length), data, row, col)) {
+          found = true
+        } else {
+          foundItem = {}
+          col++
+        }
+      } else {
+        col++
+      }
+    }
+    row++
+  }
+  return found
+}
